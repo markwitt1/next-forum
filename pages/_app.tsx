@@ -1,8 +1,12 @@
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
+import { Theme } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
 import theme from "../src/theme";
+import "../src/globalStyle.css";
+import MyAppBar from "../src/MyAppBar";
+
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
@@ -10,13 +14,7 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <ThemeProvider theme={theme}>
-        <AppBar>
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              CODE Forum
-            </Typography>
-          </Toolbar>
-        </AppBar>
+        <MyAppBar />
         <Component {...pageProps} />
       </ThemeProvider>
     </SessionProvider>
