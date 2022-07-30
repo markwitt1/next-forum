@@ -13,8 +13,8 @@ datasource db {
 model Post {
   id       String  @id @default(cuid())
   content  String
-  author   User?   @relation(fields: [authorId], references: [id])
-  authorId String?
+  author   User    @relation(fields: [authorId], references: [id])
+  authorId String
   parent   Post?   @relation("postRelation", fields: [parentId], references: [id])
   children Post[]  @relation("postRelation")
   parentId String?
