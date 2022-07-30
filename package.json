@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "^5.9.2",
     "@next-auth/prisma-adapter": "^1.0.4",
     "@prisma/client": "^3.15.2",
     "next": "12.2.3",
