@@ -102,7 +102,9 @@ const Home: NextPage<Props> = (props) => {
   }
 
   if (status === "unauthenticated") {
-    return <p>Access Denied</p>;
+    return (
+      <p>Access Denied. Please click on the top right button to login :</p>
+    );
   }
 
   return (
