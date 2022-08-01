@@ -2,6 +2,7 @@ import {
   AppBar,
   Avatar,
   Button,
+  CircularProgress,
   IconButton,
   Toolbar,
   Typography,
@@ -29,6 +30,8 @@ const MyAppBar = (props: Props) => {
             </IconButton>
             {profilePic && <Avatar src={profilePic} />}
           </>
+        ) : session.status === "loading" ? (
+          <CircularProgress />
         ) : (
           <IconButton color="inherit" onClick={() => signIn()}>
             <LoginIcon />
