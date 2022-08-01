@@ -16,15 +16,19 @@ import {
   Theme,
   Typography,
 } from "@mui/material";
-import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
-import SendIcon from "@mui/icons-material/Send";
 import { useState } from "react";
+import MyListItem from "../src/MyListItem";
+import CommentUI from "../src/CommentUI";
+import ViewPostUI from "../src/ViewPostUI";
+import { PostData } from "../src/types";
+import RecursiveListItem from "../src/RecursiveListItem";
 
 // Fetch all posts (in /pages/index.tsx)
 export async function getServerSideProps() {
   const posts = await prismaClient.post.findMany({
     include: {
       author: true,
+      children: true,
     },
   });
 
@@ -33,58 +37,28 @@ export async function getServerSideProps() {
   };
 }
 
-interface Props {
-  posts: (Post & {
-    author: User;
-  })[];
-}
-
-interface StyledListItemProps extends ListItemProps {
-  level: number;
-}
-const StyledListItem = styled(ListItem)<StyledListItemProps>(
-  ({ theme, level }) => ({
-    paddingLeft: theme.spacing(1 + level * 2),
-  })
-);
+type Props = {
+  posts: PostData[];
+};
 
 const Home: NextPage<Props> = (props) => {
   const [currentReplyOpenId, setCurrentReplyOpenId] = useState<string | null>(
     "root"
   );
   return (
-    <Box>
+    <Box sx={{ maxWidth: 360 }}>
       <List>
         {currentReplyOpenId === "root" && (
-          <StyledListItem
-            level={0}
-            key="comment"
-            secondaryAction={
-              <IconButton edge="end" aria-label="send">
-                <SendIcon />
-              </IconButton>
-            }
-          >
-            <TextField />
-          </StyledListItem>
+          <MyListItem key="comment" level={0}>
+            <CommentUI />
+          </MyListItem>
         )}
         {props.posts.map((post) => (
-          <ListItem
+          <RecursiveListItem
             key={post.id}
-            secondaryAction={
-              <IconButton edge="end" aria-label="comment">
-                <QuestionAnswerIcon />
-              </IconButton>
-            }
-          >
-            <ListItemAvatar>
-              <Avatar src={post.author.image ?? ""} />
-            </ListItemAvatar>
-            <ListItemText
-              primary={post.content}
-              secondary={`by ${post.author.name}`}
-            />
-          </ListItem>
+            post={{ ...post, level: 0 }}
+            setCurrentReplyOpenId={setCurrentReplyOpenId}
+          />
         ))}
       </List>
     </Box>
