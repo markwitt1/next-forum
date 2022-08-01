@@ -31,6 +31,10 @@ async function handleGET(postId: string, res: NextApiResponse) {
 async function handleDELETE(postId: string, res: NextApiResponse) {
   const post = await prismaClient.post.delete({
     where: { id: postId },
+    include: {
+      children: true,
+    },
   });
+
   res.json(post);
 }

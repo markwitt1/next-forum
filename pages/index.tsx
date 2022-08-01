@@ -126,7 +126,11 @@ const Home: NextPage<Props> = (props) => {
           ))}
         </List>
       </Box>
-      <Fab color="primary" aria-label="add">
+      <Fab
+        color="primary"
+        aria-label="add"
+        onClick={() => setCurrentReplyOpenId("root")}
+      >
         <AddIcon />
       </Fab>
     </>

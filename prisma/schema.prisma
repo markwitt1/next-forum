@@ -15,7 +15,7 @@ model Post {
   content  String
   author   User    @relation(fields: [authorId], references: [id])
   authorId String
-  parent   Post?   @relation("postRelation", fields: [parentId], references: [id])
+  parent   Post?   @relation("postRelation", fields: [parentId], references: [id], onDelete: Cascade)
   children Post[]  @relation("postRelation")
   parentId String?
 }
