@@ -4,7 +4,11 @@ type PostWithAuthor = Post & {
   author: User;
 };
 
-export type PostData = PostWithAuthor & {
-  children: PostData[];
+export interface PostData extends PostWithAuthor {
+  children: Post[];
   level: number;
-};
+}
+
+export interface RecursivePost extends PostData {
+  children: RecursivePost[];
+}

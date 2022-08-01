@@ -1,15 +1,29 @@
 import { IconButton, ListItemSecondaryAction, TextField } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
 
-type Props = {};
+type Props = {
+  onSubmit: (content: string) => void;
+};
 
-const CommentUI = (props: Props) => {
+const CommentUI = ({ onSubmit }: Props) => {
+  const [content, setContent] = useState("");
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setContent(event.target.value);
+  };
   return (
     <>
-      <TextField />
+      <TextField
+        label="Write something..."
+        value={content}
+        onChange={handleChange}
+      />
       <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="send">
+        <IconButton
+          edge="end"
+          aria-label="send"
+          onClick={() => onSubmit(content)}
+        >
           <SendIcon />
         </IconButton>
       </ListItemSecondaryAction>

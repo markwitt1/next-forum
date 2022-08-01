@@ -20,14 +20,14 @@ const ViewPostUI = ({ post, onPressReply }: Props) => {
   return (
     <>
       <ListItemAvatar>
-        <Avatar src={post.author.image ?? ""} />
+        <Avatar src={post.author?.image ?? ""} />
       </ListItemAvatar>
       <ListItemText
         primary={post.content}
-        secondary={`by ${post.author.name}`}
+        secondary={`by ${post.author?.name}`}
       />
       <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="comment">
+        <IconButton edge="end" aria-label="comment" onClick={onPressReply}>
           <QuestionAnswerIcon />
         </IconButton>
       </ListItemSecondaryAction>
